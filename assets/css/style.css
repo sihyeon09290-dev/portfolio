@@ -961,6 +961,33 @@ button {
   color: #fff;
 }
 
+/* 텍스트 없이 이미지만 꽉 차는 카드 */
+.cardnews-cody {
+    position: relative;
+    overflow: hidden;
+}
+
+/* 이미지 영역 전체 확장 */
+.cardnews-cody .thumb-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* 이미지 전체 채우기 */
+.cardnews-cody .thumb-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 하단 텍스트 박스 숨기기 */
+.cardnews-cody .thumb-overlay {
+    display: none;
+}
+
 /* video play */
 .reels-thumb {
   position: relative;
@@ -1163,7 +1190,6 @@ button {
 .modal-hero-media {
   aspect-ratio: var(--modal-media-ratio, 5 / 3);
   border-radius: 22px;
-  overflow: hidden;
   background:
     radial-gradient(circle at 24% 24%, rgba(50, 199, 161, 0.16), transparent 24%),
     radial-gradient(circle at 76% 30%, rgba(123, 140, 255, 0.18), transparent 22%),
@@ -1404,7 +1430,7 @@ button {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 14px 18px;
+  padding: 8px 12px;
   border-radius: 999px;
   background: rgba(50, 199, 161, 0.10);
   border: 1px solid rgba(50, 199, 161, 0.22);
@@ -1417,6 +1443,24 @@ body.modal-open {
 
 .modal-hero-media.is-swipe-ready {
   touch-action: pan-y;
+}
+
+
+/* detail 타입 모달 미디어 영역 세로 스크롤 설정 */
+.modal-dialog.modal-type-detail #modalHeroMedia {
+  overflow-y: auto !important;
+  max-height: 80vh !important; /* 모달창 높이에 맞춤 */
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.modal-dialog.modal-type-detail #modalHeroMedia img,
+.modal-dialog.modal-type-detail #modalHeroMedia video {
+  width: 100% !important;
+  height: auto !important;
+  display: block !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 @keyframes flow {
@@ -1844,68 +1888,4 @@ template {
   }
 }
 
-
-/* 첫 번째 카드뉴스 전용 */
-.cardnews-first {
-    position: relative !important;
-    display: block !important;
-    aspect-ratio: 4 / 5 !important;
-    height: auto !important;
-    min-height: 0 !important;
-    background: #ffffff !important;
-    overflow: hidden !important;
-    border-radius: 20px !important;
-}
-
-/* 이미지 영역 */
-.cardnews-first .thumb-image {
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    bottom: auto !important;
-    width: 100% !important;
-    height: 78% !important;
-    overflow: hidden !important;
-}
-
-/* 실제 이미지 */
-.cardnews-first .thumb-image img {
-    position: absolute !important;
-    inset: 0 !important;
-    display: block !important;
-    width: 100% !important;
-    object-fit: cover !important;
-    object-position: center !important;
-}
-
-/* 하단 제목 영역 */
-.cardnews-first .thumb-overlay {
-    position: absolute !important;
-    top: 79% !important;
-    left: 0 !important;
-    right: 0 !important;
-    bottom: 0 !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: center !important;
-    gap: 4px !important;
-    padding: 12px 16px !important;
-    background: #ffffff !important;
-    transform: none !important;
-    z-index: 3 !important;
-}
-
-/* 제목 */
-.cardnews-first .thumb-overlay strong {
-    color: #252525 !important;
-    font-size: 1.1rem !important;
-    font-weight: 600 !important;
-}
-
-/* 설명 */
-.cardnews-first .thumb-overlay span {
-    color: #777777 !important;
-    font-size: 0.82rem !important;
-}
 
