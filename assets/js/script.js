@@ -1,4 +1,3 @@
-
 const siteHeader = document.getElementById('siteHeader');
 const modal = document.getElementById('portfolioModal');
 const modalDialog = modal.querySelector('.modal-dialog');
@@ -53,16 +52,15 @@ function createMediaMarkup(src, alt) {
 
   if (isVideoFile(src)) {
     return `
-          <video autoplay muted loop playsinline preload="metadata" aria-label="${alt}">
-            <source src="${src}">
-          </video>
-        `;
+      <video autoplay muted loop playsinline preload="metadata" aria-label="${alt}">
+        <source src="${src}">
+      </video>
+    `;
   }
 
   return `<img src="${src}" alt="${alt}">`;
 }
 
-// poster / banner는 data-modal-media 속성으로 썸네일과 다른 모달 전용 이미지를 지정할 수 있습니다.
 function getCardData(source) {
   return {
     type: source.dataset.modalType || 'default',
@@ -84,7 +82,10 @@ function getCardData(source) {
     tags: (source.dataset.modalTags || '').split(',').map(tag => tag.trim()).filter(Boolean),
     link: source.dataset.modalLink || '#',
     subLink: source.dataset.modalSublink || '#',
-    images: (source.dataset.modalImages || '').split('|').map(item => item.trim()).filter(Boolean),
+    showLink: source.classList.contains('show-modal-link'),
+
+    // 파이프(|)와 쉼표(,) 모두 지원
+    images: (source.dataset.modalImages || '').split(/[,|]/).map(item => item.trim()).filter(Boolean),
     ratio: source.dataset.modalRatio || '',
     modalMedia: source.dataset.modalMedia || '',
     badgeLabel: source.dataset.modalLabel || ({
@@ -125,7 +126,8 @@ function fillTemplateFields(container, data) {
   const mainLink = container.querySelector('#modalLink');
   if (mainLink) {
     mainLink.href = data.link;
-    mainLink.classList.toggle('is-hidden', data.link === '#');
+    const shouldShow = data.showLink && data.link !== '#';
+    mainLink.classList.toggle('is-hidden', !shouldShow);
   }
 
   const subLink = container.querySelector('#modalSubLink');
@@ -144,12 +146,9 @@ function setModalGalleryMode(type, totalImages) {
   modalPageIndicator.classList.toggle('is-hidden', !isMultiPageCardNews);
 }
 
-
-
-
 function setModalTypeClass(type) {
-  modalDialog.classList.remove('modal-type-poster', 'modal-type-banner', 'modal-type-cardnews', 'modal-type-reels', 'modal-type-default');
-  const normalized = ['poster', 'banner', 'cardnews', 'reels'].includes(type) ? type : 'default';
+  modalDialog.classList.remove('modal-type-poster', 'modal-type-banner', 'modal-type-cardnews', 'modal-type-reels', 'modal-type-detail', 'modal-type-default');
+  const normalized = ['poster', 'banner', 'cardnews', 'reels', 'detail'].includes(type) ? type : 'default';
   modalDialog.classList.add(`modal-type-${normalized}`);
 }
 
@@ -162,9 +161,15 @@ function setModalMediaRatio(ratio, type) {
     default: '5 / 3'
   };
 
-  const normalizedType = ['poster', 'banner', 'cardnews', 'reels'].includes(type) ? type : 'default';
-  const finalRatio = ratio && ratio.trim() ? ratio.trim() : fallbackRatios[normalizedType];
+  const normalizedType = ['poster', 'banner', 'cardnews', 'reels', 'detail'].includes(type) ? type : 'default';
+  
+  if (type === 'detail' || ratio === 'long') {
+    modalDialog.style.removeProperty('--modal-media-ratio');
+    modalHeroMedia.style.removeProperty('aspect-ratio');
+    return;
+  }
 
+  const finalRatio = ratio && ratio.trim() ? ratio.trim() : fallbackRatios[normalizedType];
   modalDialog.style.setProperty('--modal-media-ratio', finalRatio);
   modalHeroMedia.style.aspectRatio = finalRatio;
 }
@@ -208,6 +213,27 @@ function renderModalHeroByIndex(index) {
     return;
   }
 
+  // 상세페이지(detail) 롱스크롤 분기
+  const isLongScroll = modalDialog.classList.contains('modal-type-detail') || 
+                       (modalDialog.style.getPropertyValue('--modal-media-ratio') === 'long');
+
+  if (isLongScroll) {
+    modalHeroMedia.classList.remove('is-swipe-ready');
+    modalHeroMedia.style.aspectRatio = 'auto';
+    
+    // 5장의 이미지를 순서대로 세로 배치
+    modalHeroMedia.innerHTML = currentModalImages.map((src, i) => 
+      createMediaMarkup(src, `${currentModalTitle} ${i + 1}`)
+    ).join('');
+
+    modalThumbs.classList.add('is-hidden');
+    modalPrev.classList.add('is-hidden');
+    modalNext.classList.add('is-hidden');
+    modalPageIndicator.classList.add('is-hidden');
+    return;
+  }
+
+  // 일반 카드뉴스/배너/포스터 슬라이더 모드 유지
   currentModalIndex = Math.max(0, Math.min(index, currentModalImages.length - 1));
   modalHeroMedia.classList.add('is-swipe-ready');
   modalHeroMedia.innerHTML = createMediaMarkup(
@@ -232,7 +258,6 @@ function renderModalThumbs(images, title) {
   modalThumbs.innerHTML = '';
 
   if (!images.length) {
-    modalThumbs.innerHTML = '';
     updateModalControls();
     return;
   }
@@ -289,7 +314,7 @@ function closeModal() {
   modal.classList.remove('is-open');
   modal.setAttribute('aria-hidden', 'true');
   document.body.classList.remove('modal-open');
-  modalDialog.classList.remove('modal-type-poster', 'modal-type-banner', 'modal-type-cardnews', 'modal-type-reels', 'modal-type-default');
+  modalDialog.classList.remove('modal-type-poster', 'modal-type-banner', 'modal-type-cardnews', 'modal-type-reels', 'modal-type-detail', 'modal-type-default');
   modalDialog.style.removeProperty('--modal-media-ratio');
   modalHeroMedia.style.removeProperty('aspect-ratio');
   if (lastFocusedElement) lastFocusedElement.focus();
@@ -351,7 +376,6 @@ function enableDragScroll(track) {
   let startScrollLeft = 0;
   let hasDragged = false;
   let suppressClick = false;
-
   const threshold = 8;
 
   track.querySelectorAll('.thumb-card').forEach((card) => {
@@ -370,14 +394,11 @@ function enableDragScroll(track) {
 
   const onMouseMove = (e) => {
     if (!isDown) return;
-
     const dx = e.clientX - startX;
-
     if (Math.abs(dx) > threshold) {
       hasDragged = true;
       suppressClick = true;
     }
-
     if (hasDragged) {
       track.scrollLeft = startScrollLeft - dx;
     }
@@ -387,7 +408,6 @@ function enableDragScroll(track) {
     if (!isDown) return;
     isDown = false;
     track.classList.remove('dragging');
-
     if (hasDragged) {
       setTimeout(() => {
         suppressClick = false;
@@ -405,10 +425,7 @@ function enableDragScroll(track) {
   window.addEventListener('mousemove', onMouseMove);
   window.addEventListener('mouseup', onMouseUp);
   track.addEventListener('mouseleave', onMouseLeave);
-
-  track.addEventListener('dragstart', (e) => {
-    e.preventDefault();
-  });
+  track.addEventListener('dragstart', (e) => e.preventDefault());
 
   track.addEventListener('click', (e) => {
     if (!suppressClick) return;
@@ -498,7 +515,6 @@ document.querySelectorAll('a[href^="#"]').forEach((link) => {
 });
 
 const reelCards = document.querySelectorAll('#videoTrack .reels-thumb');
-
 reelCards.forEach((card) => {
   const video = card.querySelector('.thumb-video');
   if (!video) return;
@@ -521,7 +537,6 @@ reelCards.forEach((card) => {
 });
 
 const allCards = document.querySelectorAll('.thumb-card');
-
 allCards.forEach((card) => {
   const video = card.querySelector('.thumb-video');
   if (!video) return;
@@ -538,8 +553,3 @@ allCards.forEach((card) => {
     video.currentTime = 0;
   });
 });
-
-
-// 기존 스크립트 예시: data-modal-media 하나만 가져와 src에 넣음
-const mediaSrc = card.getAttribute('data-modal-media');
-modalImg.src = mediaSrc;
