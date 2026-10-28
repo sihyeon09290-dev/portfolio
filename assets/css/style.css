@@ -2154,3 +2154,41 @@ body.modal-open {
     overflow: hidden;
   }
 }
+
+
+.brand-track,
+.thumb-track {
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  
+  /* 핵심: 모바일에서 손가락으로 밀었을 때 딱 맞아떨어지는 스냅 효과 */
+  scroll-snap-type: x mandatory;
+  
+  /* 핵심: iOS(아이폰) 및 안드로이드에서 관성(부드러운 스크롤) 부여 */
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  
+  /* 스크롤바 숨기기 */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  
+  /* 모바일 터치 제스처가 가로 스크롤을 우선 인식하도록 설정 */
+  touch-action: pan-x;
+  
+  padding: 10px 0;
+}
+
+/* 크롬/사파리 스크롤바 숨기기 */
+.brand-track::-webkit-scrollbar,
+.thumb-track::-webkit-scrollbar {
+  display: none;
+}
+
+/* 트랙 내부 카드들이 스냅 위치에 정확히 안착하도록 설정 */
+.brand-track > *,
+.thumb-track > * {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+}
