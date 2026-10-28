@@ -11,16 +11,28 @@
   <!-- font-family: -apple-system, BlinkMacSystemFont; -->
   <!-- font-family: Pretendard; -->
 
-  <link rel="shortcut icon" href="assets/img/favicon.svg" type="image/x-icon">
+  <!-- 파비콘 링크 -->
+  <link rel="shortcut icon" href="./favicon02.png" type="image/x-icon">
+
+  <!-- 외부 css 연결 -->
   <link rel="stylesheet" href="assets/css/style.css">
 
-
+  <!-- AOS 링크 -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 </head>
 
 <body>
   <header class="site-header" id="siteHeader">
     <nav class="nav">
       <a href="#hero" class="brand">KIM SI HYEON</a>
+
+      <!-- 햄버거 토글 버튼 추가 -->
+    <button class="nav-toggle" id="navToggle" aria-label="메뉴 열기">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
       <div class="nav-links">
         <a href="#about">About</a>
         <a href="#branding">Brand</a>
@@ -80,7 +92,7 @@
             </div>
           </article>
 
-          <article class="card about-body reveal reveal-right">
+          <article class="card about-body reveal reveal-right" data-aos="fade-left" data-aos-duration="1000">
             <h3>분명한 존재감을 디자인하는 디자이너</h3>
             <p>
               시각디자인을 기반으로 브랜드의 개성을 표현하고, 웹 기획부터 디자인과 구현까지 연결합니다. <br>
@@ -190,14 +202,15 @@
             <div>
               <div class="brand-slider-head">
                 <span class="brand-slider-title">Website · Brand Planning · Mockup · Web Guide </span>
-                <!-- <div class="slider-controls">
+                <!-- 모바일/태블릿 전용으로 노출될 슬라이드 버튼 -->
+                <div class="slider-controls brand-mobile-controls">
                   <button class="slider-btn" type="button" data-slider-prev="brandTrack01">←</button>
                   <button class="slider-btn" type="button" data-slider-next="brandTrack01">→</button>
-                </div> -->
+                </div>
               </div>
               <div class="brand-track slider-track" id="brandTrack01">
 
-                <article class="thumb-card brand-thumb">
+                <article class="thumb-card brand-thumb" data-aos="fade-up" data-aos-duration="800" data-aos-delay="150">
                   <a href="https://sihyeon09290-dev.github.io/LUMEN/index.html" target="_blank">
                     <video class="thumb-video" autoplay muted loop playsinline>
                       <source src="./video/website.mp4" type="video/mp4" />
@@ -215,7 +228,7 @@
                   </a>
                 </article>
 
-                <article class="thumb-card brand-thumb">
+                <article class="thumb-card brand-thumb" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
                   <a href="./guide/guide_brand.html" target="_blank">
                     <video class="thumb-video" muted loop playsinline preload="metadata">
                       <source src="./video/brand_planning.mp4" type="video/mp4" />
@@ -233,7 +246,7 @@
                   </a>
                 </article>
 
-                <article class="thumb-card brand-thumb">
+                <article class="thumb-card brand-thumb" data-aos="fade-up" data-aos-duration="800" data-aos-delay="450">
                   <a href="./guide_mockup.html" target="_blank">
                     <video class="thumb-video" autoplay muted loop playsinline>
                       <source src="./video/mockup.mp4" type="video/mp4" />
@@ -251,7 +264,7 @@
                   </a>
                 </article>
 
-                <article class="thumb-card brand-thumb">
+                <article class="thumb-card brand-thumb" data-aos="fade-up" data-aos-duration="800" data-aos-delay="600">
                   <a href="./guide_web.html" target="_blank">
                     <video class="thumb-video" autoplay muted loop playsinline>
                       <source src="./video/webguide.mp4" type="video/mp4" />
@@ -450,8 +463,7 @@
                       data-modal-tags="Fashion, Lookbook, F/W Style, Card News, Curation"
                       data-modal-note-title="Design & Planning Note"
                       data-modal-note="인스타그램 피드에서 시선을 사로잡는 말풍선 후킹 커버를 배치하고, 본문에서는 찢어진 종이(Paper Tear) 텍스처를 활용해 모델 착장과 개별 아이템(코트, 니트, 팬츠, 부츠 등)의 상세 정보를 직관적으로 분리 매칭했습니다. 마지막 페이지에는 팔로우 및 저장(스크랩)을 유도하는 CTA 인터랙션 UI와 다음 호 예고를 배치해 계정 성장을 유도하도록 기획했습니다."
-                      data-modal-video="" data-modal-link="https://example.com"
-                      data-modal-link="https://www.figma.com/proto/1IvY74fNtLm2EnkEDxxedW/%EC%B9%B4%EB%93%9C%EB%89%B4%EC%8A%A4_%EC%BD%94%EB%94%94?node-id=2-11&p=f&viewport=192%2C965%2C0.3&t=bngD9s7sRgNnl4WU-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=2%3A11&page-id=0%3A1"
+                      data-modal-link="https://www.figma.com/proto/1IvY74fNtLm2EnkEDxxedW/%EC%B9%B4%EB%93%9C%EB%89%B4%EC%8A%A4_%EC%BD%94%EB%94%94?node-id=2-11&p=f&viewport=192%2C965%2C0.3&t=XkrlbyUOEEMCbqLR-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=2%3A11&page-id=0%3A1"
                       data-modal-images="assets/img/cody01.png|assets/img/cody02.png|assets/img/cody03.png|assets/img/cody04.png|assets/img/cody05.png|assets/img/cody06.png|assets/img/cody07.png">
 
                       <div class="thumb-image">
@@ -659,7 +671,7 @@
                   </div>
                   <div class="thumb-track slider-track" id="videoTrack">
                     <!-- 첫번째 쇼츠 -->
-                    <article class="reels-thumb thumb-card modal-card" data-modal-type="reels" data-modal-title="" LUMEN
+                    <article class="reels-thumb thumb-card modal-card" data-modal-type="reels" data-modal-title="LUMEN
                       Brand Reel"
                       data-modal-description="빛의 굴절과 역동적인 질감을 시각화한 LUMEN 브랜드 프로모션 릴스 영상입니다. 초반 3초 후킹과 리드미컬한 모션 트랜지션을 중점적으로 연출했습니다."
                       data-modal-role="Motion Design / Reel Editing"
@@ -1029,6 +1041,11 @@
 
   <script src="assets/js/script.js"></script>
 
+  <!-- AOS -->
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    AOS.init();
+  </script>
 
 </body>
 
