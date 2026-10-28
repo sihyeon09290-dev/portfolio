@@ -553,3 +553,48 @@ allCards.forEach((card) => {
     video.currentTime = 0;
   });
 });
+
+
+
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.getElementById('.nav-links');
+
+if (navToggle && navLinks) {
+  // 햄버거 버튼 클릭 토글
+  navToggle.addEventListener('click', () => {
+    navToggle.classList.toggle('is-active');
+    navLinks.classList.toggle('is-open');
+    document.body.classList.toggle('menu-open');
+  });
+
+  // 메뉴 항목(a 태그) 중 하나를 클릭하면 모바일 메뉴 자동 닫기
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navToggle.classList.remove('is-active');
+      navLinks.classList.remove('is-open');
+      document.body.classList.remove('menu-open');
+    });
+  });
+}
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.querySelector('.nav-links');
+
+  if (navToggle && navLinks) {
+    navToggle.addEventListener('click', () => {
+      navToggle.classList.toggle('is-active');
+      navLinks.classList.toggle('is-open');
+      document.body.classList.toggle('menu-open');
+    });
+
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navToggle.classList.remove('is-active');
+        navLinks.classList.remove('is-open');
+        document.body.classList.remove('menu-open');
+      });
+    });
+  }
+});
