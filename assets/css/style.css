@@ -5,10 +5,10 @@
   --surface-strong: rgba(255, 255, 255, 0.96);
   --text: #111827;
   --text-muted: #667085;
-  --line: rgba(17, 24, 39, 0.09);
+  --line: rgba(140, 130, 120, 0.18);
   --accent: #ad794b;
-  --accent-2: #7b8cff;
-  --shadow: 0 18px 50px rgba(15, 23, 42, 0.08);
+  --accent-2: #8c8278;
+  --shadow: 0 18px 50px rgba(110, 95, 80, 0.08);
   --radius-lg: 28px;
   --radius-md: 20px;
   --radius-sm: 14px;
@@ -29,9 +29,12 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Pretendard sans-serif;
   background:
-    radial-gradient(circle at top right, rgba(50, 199, 161, 0.09), transparent 24%),
-    radial-gradient(circle at 12% 10%, rgba(123, 140, 255, 0.08), transparent 18%),
-    linear-gradient(180deg, #ffffff 0%, #f7f8fb 44%, #ffffff 100%);
+    radial-gradient(ellipse at 15% 10%,
+      rgba(248, 241, 228, 0.45),
+      transparent 45%),
+    linear-gradient(135deg,
+      #FFFFFF 0%,
+      #FAF9F6 100%);
   color: var(--text);
   line-height: 1.6;
   overflow-x: hidden;
@@ -61,6 +64,7 @@ button {
   padding: 120px 0;
   position: relative;
   scroll-margin-top: calc(var(--nav-h) + 24px);
+  overflow: hidden;
 }
 
 .eyebrow {
@@ -76,7 +80,7 @@ button {
   background: rgba(255, 255, 255, 0.72);
   /* background: #86ecd0; */
   backdrop-filter: blur(10px);
-  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.04);
+  box-shadow: 0 8px 20px rgba(42, 24, 15, 0.04);
 }
 
 .section-head {
@@ -202,8 +206,11 @@ button {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at 14% 26%, rgba(50, 199, 161, 0.11), transparent 22%),
-    radial-gradient(circle at 84% 18%, rgba(123, 140, 255, 0.10), transparent 24%);
+    /* 차가운 청록색 대신 따뜻한 브라스 골드 톤 */
+    radial-gradient(circle at 14% 26%, rgba(226, 161, 117, 0.3), transparent 28%),
+    /* 차가운 파란색 대신 차분한 스톤 그레이/토프 톤 */
+    radial-gradient(circle at 84% 18%, rgba(140, 130, 120, 0.2), transparent 26%);
+  filter: blur(10px);
   filter: blur(10px);
   pointer-events: none;
   animation: heroGlow 10s ease-in-out infinite alternate;
@@ -367,131 +374,6 @@ button {
   animation: heroFadeUpScale 1100ms cubic-bezier(.2, .8, .2, 1) 380ms forwards;
 }
 
-.hero-frame {
-  position: relative;
-  min-height: 720px;
-  width: 100%;
-  border-radius: 38px;
-  border: 1px solid rgba(17, 24, 39, 0.07);
-  background:
-    linear-gradient(160deg, rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.62)),
-    rgba(255, 255, 255, 0.88);
-  overflow: hidden;
-  box-shadow: 0 26px 80px rgba(15, 23, 42, 0.09);
-  backdrop-filter: blur(20px);
-}
-
-.hero-frame::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(135deg, rgba(50, 199, 161, 0.08), transparent 34%),
-    linear-gradient(220deg, rgba(123, 140, 255, 0.08), transparent 28%);
-  pointer-events: none;
-}
-
-.hero-frame::after {
-  content: "";
-  position: absolute;
-  inset: 18px;
-  border-radius: 26px;
-  border: 1px solid rgba(17, 24, 39, 0.05);
-  pointer-events: none;
-}
-
-.hero-stack {
-  position: absolute;
-  inset: 0;
-  padding: 30px;
-  display: grid;
-  grid-template-columns: minmax(0, 1.08fr) minmax(280px, 0.82fr);
-  grid-template-rows: minmax(0, 1.12fr) minmax(0, 0.88fr);
-  gap: 18px;
-}
-
-.hero-panel {
-  position: relative;
-  border-radius: 26px;
-  overflow: hidden;
-  border: 1px solid rgba(17, 24, 39, 0.06);
-  background:
-    radial-gradient(circle at 20% 20%, rgba(50, 199, 161, 0.12), transparent 26%),
-    radial-gradient(circle at 78% 24%, rgba(123, 140, 255, 0.14), transparent 24%),
-    linear-gradient(135deg, #ffffff 0%, #f3f6fb 52%, #eef2f8 100%);
-  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
-  transition: transform 600ms cubic-bezier(.2, .8, .2, 1), border-color var(--transition), box-shadow var(--transition);
-  transform-origin: center;
-}
-
-.hero-panel:hover {
-  transform: translateY(-6px) scale(1.01);
-  border-color: rgba(50, 199, 161, 0.16);
-  box-shadow: 0 24px 50px rgba(15, 23, 42, 0.12);
-}
-
-.hero-panel--primary {
-  grid-column: 1;
-  grid-row: 1 / span 2;
-  min-height: 0;
-  animation: panelFloatA 10s ease-in-out infinite;
-}
-
-.hero-panel--secondary,
-.hero-panel--tertiary {
-  min-height: 0;
-  min-width: 0;
-}
-
-.hero-panel--secondary {
-  animation: panelFloatB 8.5s ease-in-out infinite;
-}
-
-.hero-panel--tertiary {
-  animation: panelFloatC 9.5s ease-in-out infinite;
-}
-
-.hero-panel video,
-.hero-panel img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transform: scale(1.02);
-  background:
-    radial-gradient(circle at 20% 20%, rgba(50, 199, 161, 0.16), transparent 26%),
-    radial-gradient(circle at 78% 24%, rgba(123, 140, 255, 0.18), transparent 24%),
-    linear-gradient(135deg, #ffffff 0%, #f3f6fb 52%, #eef2f8 100%);
-}
-
-/* .hero-panel::after {
-  content: "";
-  position: absolute;
-  inset: auto 0 0 0;
-  height: 52%;
-  background: linear-gradient(to top, rgba(255, 255, 255, 0.94), transparent);
-  pointer-events: none;
-} */
-
-.hero-panel-label {
-  position: absolute;
-  left: 18px;
-  right: 18px;
-  bottom: 18px;
-  z-index: 1;
-  display: grid;
-  gap: 4px;
-}
-
-.hero-panel-label strong {
-  font-size: 1.1rem;
-  letter-spacing: -0.03em;
-}
-
-.hero-panel-label span {
-  color: var(--text-muted);
-  font-size: 0.88rem;
-}
-
 .scroll-indicator {
   position: absolute;
   bottom: 24px;
@@ -539,7 +421,7 @@ button {
 
 .profile-media {
   aspect-ratio: 5 / 3;
-  background: linear-gradient(145deg, rgba(50, 199, 161, 0.12), rgba(123, 140, 255, 0.12));
+  background: linear-gradient(145deg, rgba(173, 121, 75, 0.12), rgba(138, 128, 118, 0.10));
   display: grid;
   place-items: center;
   color: var(--text-muted);
@@ -696,49 +578,6 @@ button {
   color: #ad794b;
 }
 
-.brand1_color .tag a {
-  background-color: #c4b02a;
-  color: #fff;
-}
-
-.brand1_color .tag a:hover {
-  background-color: #a24b1c;
-  color: #fff;
-}
-
-.brand1_color .point-color a {
-  background-color: #a24b1c;
-  color: #fff;
-}
-
-.brand1_color .point-color a:hover {
-  background-color: #c4b02a;
-  color: #fff;
-}
-
-.brand2_color h3 {
-  color: orangered;
-}
-
-.brand2_color .tag a {
-  background-color: orangered;
-  color: #fff;
-}
-
-.brand2_color .tag a:hover {
-  background-color: orange;
-  color: #fff;
-}
-
-.brand2_color .point-color a {
-  background-color: orange;
-  color: #fff;
-}
-
-.brand2_color .point-color a:hover {
-  background-color: orangered;
-  color: #fff;
-}
 
 /* 브랜드별 색상 end */
 
@@ -1209,9 +1048,12 @@ button {
   aspect-ratio: var(--modal-media-ratio, 5 / 3);
   border-radius: 22px;
   background:
-    radial-gradient(circle at 24% 24%, rgba(50, 199, 161, 0.16), transparent 24%),
-    radial-gradient(circle at 76% 30%, rgba(123, 140, 255, 0.18), transparent 22%),
-    linear-gradient(135deg, #ffffff 0%, #f3f6fb 52%, #eef2f8 100%);
+    /* 은은한 브라스 골드 온기 */
+    radial-gradient(circle at 24% 24%, rgba(173, 121, 75, 0.10), transparent 26%),
+    /* 차분한 스톤 그레이 / 토프 톤 */
+    radial-gradient(circle at 76% 30%, rgba(140, 130, 120, 0.08), transparent 24%),
+    /* 전체 베이스: 오프화이트에서 웜 베이지로 이어지는 흐름 */
+    linear-gradient(135deg, #ffffff 0%, #f8f6f2 52%, #f2efe9 100%);
   display: grid;
   place-items: center;
   color: var(--text-muted);
@@ -1988,12 +1830,12 @@ template {
   }
 
   /* 모바일에서 스크롤 카드 크기 축소 */
-  .brand-track > .brand-thumb {
+  .brand-track>.brand-thumb {
     width: 260px;
     flex: 0 0 260px;
   }
 
-  .thumb-track > .thumb-card {
+  .thumb-track>.thumb-card {
     width: 220px;
     flex: 0 0 220px;
   }
@@ -2034,9 +1876,10 @@ body.modal-open {
     justify-content: space-between;
     align-items: center;
   }
-  
+
   .brand-slider-head .slider-controls {
-    display: flex; /* 버튼 노출 */
+    display: flex;
+    /* 버튼 노출 */
   }
 }
 
@@ -2045,6 +1888,7 @@ body.modal-open {
 
 
 @media (max-width: 768px) {
+
   /* 슬라이드 헤더 영역 정렬 */
   .brand-slider-head {
     display: flex;
@@ -2097,20 +1941,40 @@ body.modal-open {
   display: block;
   width: 100%;
   height: 2px;
-  background: #fff;
-  transition: transform 0.3s ease, opacity 0.3s ease, background 0.3s ease;
+  background: #1a1816;
+  /* 차분하고 선명한 다크 차콜 톤 (어디서나 잘 보임) */
+  transition: transform 320ms cubic-bezier(.2, .8, .2, 1),
+    opacity 320ms cubic-bezier(.2, .8, .2, 1),
+    background 320ms cubic-bezier(.2, .8, .2, 1);
 }
+
+/* 헤더에 scrolled 클래스가 붙었을 때(스크롤 시)나 모바일 메뉴가 열렸을 때 색상 조율이 필요하다면 연동 */
+.site-header.scrolled .nav-toggle span {
+  background: #1a1816;
+}
+
+/* 모바일 메뉴가 열려 X자로 변형되었을 때의 색상 */
+.nav-toggle.is-active span {
+  background: #1a1816;
+}
+
+
+
+
+/* ======== 반응형 =========== */
 
 /* 모바일 및 태블릿 구간 (768px 이하) */
 @media (max-width: 768px) {
   .nav-toggle {
-    display: flex; /* 모바일에서 햄버거 버튼 노출 */
+    display: flex;
+    /* 모바일에서 햄버거 버튼 노출 */
   }
 
   .nav-links {
     position: fixed;
     top: 0;
-    right: -100%; /* 화면 우측 바깥으로 숨김 */
+    right: -100%;
+    /* 화면 우측 바깥으로 숨김 */
     width: 75%;
     max-width: 320px;
     height: 100vh;
@@ -2141,9 +2005,11 @@ body.modal-open {
     transform: translateY(11px) rotate(45deg);
     background: var(--text);
   }
+
   .nav-toggle.is-active span:nth-child(2) {
     opacity: 0;
   }
+
   .nav-toggle.is-active span:nth-child(3) {
     transform: translateY(-11px) rotate(-45deg);
     background: var(--text);
@@ -2162,21 +2028,21 @@ body.modal-open {
   gap: 24px;
   overflow-x: auto;
   overflow-y: hidden;
-  
+
   /* 핵심: 모바일에서 손가락으로 밀었을 때 딱 맞아떨어지는 스냅 효과 */
   scroll-snap-type: x mandatory;
-  
+
   /* 핵심: iOS(아이폰) 및 안드로이드에서 관성(부드러운 스크롤) 부여 */
   -webkit-overflow-scrolling: touch;
   scroll-behavior: smooth;
-  
+
   /* 스크롤바 숨기기 */
   scrollbar-width: none;
   -ms-overflow-style: none;
-  
+
   /* 모바일 터치 제스처가 가로 스크롤을 우선 인식하도록 설정 */
   touch-action: pan-x;
-  
+
   padding: 10px 0;
 }
 
@@ -2187,8 +2053,8 @@ body.modal-open {
 }
 
 /* 트랙 내부 카드들이 스냅 위치에 정확히 안착하도록 설정 */
-.brand-track > *,
-.thumb-track > * {
+.brand-track>*,
+.thumb-track>* {
   flex: 0 0 auto;
   scroll-snap-align: start;
 }
