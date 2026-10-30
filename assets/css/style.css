@@ -483,6 +483,28 @@ button {
   font-size: 0.96rem;
 }
 
+/* AWARDS */
+.awards {
+  margin-top: 26px;
+}
+
+.awards-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 8px;
+  color: var(--text);
+  letter-spacing: 0.5px;
+}
+
+.awards .timeline {
+  margin-top: 0;
+}
+
+.award-name {
+  color: #AD794B !important;
+  font-weight: 600;
+}
+
 .skills {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -788,7 +810,7 @@ button {
 }
 
 .thumb-overlay strong {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   letter-spacing: -0.02em;
   color: #252525;
   font-weight: 500;
@@ -2057,4 +2079,80 @@ body.modal-open {
 .thumb-track>* {
   flex: 0 0 auto;
   scroll-snap-align: start;
+}
+
+
+/* =================================
+   브랜드 슬라이더 모바일 카드 개선
+================================= */
+
+@media (max-width: 768px) {
+
+  /* 카드 링크 전체 영역 */
+  .brand-thumb > a {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* 카드 동영상 영역 */
+  .brand-thumb .thumb-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 55%;
+    object-fit: cover;
+  }
+
+  /* 카드 하단 정보 영역 */
+  .brand-thumb .thumb-overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 45%;
+
+    display: grid;
+    align-content: center;
+    gap: 8px;
+
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.96);
+
+    transform: none;
+  }
+
+  /* 타이틀 */
+  .brand-thumb .thumb-overlay strong {
+    font-size: 1.15rem;
+    line-height: 1.3;
+    font-weight: 600;
+    color: #252525;
+  }
+
+  /* 설명 */
+  .brand-thumb .thumb-explanation {
+    height: auto;
+    min-height: 0;
+    margin: 0;
+
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: #555;
+    word-break: keep-all;
+  }
+
+
+  /* 사용 프로그램 아이콘 */
+  .brand-thumb .skills-icon {
+    margin: 2px 0 0;
+    gap: 9px;
+  }
+
+  .brand-thumb .skills-icon img {
+    width: 26px;
+  }
+
 }
